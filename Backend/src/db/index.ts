@@ -3,7 +3,7 @@ import "dotenv/config"
 import {drizzle} from "drizzle-orm/node-postgres"
 import pg from "pg"
 
-import * as schemas from "./schemas"
+import * as schemas from "./schema"
 
 // create database instance
 
@@ -12,3 +12,5 @@ const pool = new pg.Pool({
 })
 
 export const db = drizzle(pool, {schema: schemas})
+
+
