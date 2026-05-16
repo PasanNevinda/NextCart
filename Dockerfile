@@ -2,7 +2,7 @@
 
 # ---- Stage 1: Build the SPA (Single Page Application) using Vite ----
 # produces static HTML/CSS/JS assets in the 'dist' directory - copied into the final imaee as ./public
-FROM node::22-bookworm-slim AS frontend-build
+FROM node:22-bookworm-slim AS frontend-build
 WORKDIR /app/frontend
 COPY Frontend/ ./
 
