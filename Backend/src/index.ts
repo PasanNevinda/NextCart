@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import "dotenv/config";
 
+import * as Sentry from "@sentry/node";
+
 import fs from "node:fs";
 import path from 'node:path';
 
@@ -16,6 +18,7 @@ import productRouter from './routes/productRouter';
 import meRouter from './routes/meRouter';
 import streamRouter from './routes/streamRouter';
 import checkoutRouter from './routes/checkoutRouter';
+import { sentryClerkUserMiddleware } from './middleware/sentryClerkUser';
 
 
 const env = getEnv();
@@ -38,6 +41,8 @@ app.post("/webhooks/polar", rawJson, (req, res) => {
 app.use(express.json());
 app.use(cors());
 app.use(clerkMiddleware());
+
+app.use(sentryClerkUserMiddleware);
 
 app.get("/health", (_, res) => {
   res.status(200).json({ok: true});
@@ -69,8 +74,19 @@ if(fs.existsSync(publicDir)){
   });
 }
 
+// sentry will be attached to the response object
+Sentry.setupExpressErrorHandler(app);
 
-// todo: error handle middleware
+// error handle middleware
+app.use((_err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const sentryId = (res as express.Response & {sentry?:string}).sentry;
+
+  res.status(500).json({
+    error: "Internal Server Error",
+    ...(sentryId !== undefined && {sentryId}),
+  });
+
+});
 
 app.listen(env.PORT, () => {
   console.log(`Server is running on port ${env.PORT}`);
