@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getEnv } from "../lib/env";
-import { checkoutSessions, orderItems, orders, productRelations } from "../db/schema";
+import { checkoutSessions, orderItems, orders } from "../db/schema";
 import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { Webhook } from "standardwebhooks";
