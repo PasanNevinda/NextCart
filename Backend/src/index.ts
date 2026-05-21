@@ -7,6 +7,7 @@ import path from 'node:path';
 
 import { clerkMiddleware } from '@clerk/express'
 import { clearkWebhookHandler } from './webhooks/clerk';
+import { polarWebhookHandler } from './webhooks/polar';
 import { getEnv } from './lib/env';
 import keepAliveJob from './lib/cron';
 
@@ -27,6 +28,10 @@ const rawJson = express.raw({type: "application/json", limit: "1mb"});
 //  so this place before app.use(express.json())
 app.post("/webhooks/clerk", rawJson, (req, res) => {
   void clearkWebhookHandler(req, res);
+});
+
+app.post("/webhooks/polar", rawJson, (req, res) => {
+  void polarWebhookHandler(req, res);
 });
 
 
