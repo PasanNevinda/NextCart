@@ -152,7 +152,7 @@ export async function createStreamChannel(req: Request, res: Response, next: Nex
 
         const isOwner = order.userId === localUser.id;;
         if(!isOwner && !isStaff(localUser.role)){
-            res.status(401).json({"Unauthorized"});
+            res.status(401).json({error: "Unauthorized"});
             return;
         }
 
