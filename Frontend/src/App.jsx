@@ -1,9 +1,13 @@
-import './App.css'
-import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react'
+import { Show, SignInButton, SignUpButton, useAuth, UserButton } from '@clerk/react'
+import PageLoader from './components/PageLoader';
+import Layout from './components/Layout';
 
 function App() {
+
+  const {isLoaded} = useAuth();
+  if(!isLoaded) return <PageLoader/>;
   return (
-   <>
+   <Layout>
     <header>
         <Show when="signed-out">
           <SignInButton mode="modal" />
@@ -12,8 +16,11 @@ function App() {
         <Show when="signed-in">
           <UserButton />
         </Show>
-      </header>
-   </>
+    </header>
+    <button className='btn btn-primary'>click me</button>
+    <button className='btn btn-secondary'>click me</button>
+    <button className='btn btn-outline'>click me</button>
+   </Layout>
   )
 }
 
