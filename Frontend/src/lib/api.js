@@ -36,6 +36,11 @@ export async function apiFetch(endpoint, options = {}) {
             data: { network: true },
         });
 
+        Sentry.captureException(error, {
+            tags: { "api.fetch": "network" },
+            extra: { endpoint, method },
+        });
+
         throw error;
     }
 

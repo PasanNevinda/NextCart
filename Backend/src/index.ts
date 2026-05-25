@@ -48,6 +48,7 @@ app.use(clerkMiddleware());
 
 app.use(sentryClerkUserMiddleware);
 
+
 app.get("/health", (_, res) => {
   res.status(200).json({ok: true});
 });
@@ -85,7 +86,8 @@ Sentry.setupExpressErrorHandler(app);
 
 // error handle middleware
 app.use((_err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  const sentryId = (res as express.Response & {sentry?:string}).sentry;
+  const responseWithSentry = res as express.Response & {sentry?: string};
+  const sentryId = responseWithSentry.sentry ?? Sentry.captureException(_err);
 
   res.status(500).json({
     error: "Internal Server Error",

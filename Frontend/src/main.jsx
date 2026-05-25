@@ -28,26 +28,27 @@ const tracePropagationTargets =
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
-  env: import.meta.env.MODE,
+  environment: import.meta.env.MODE,
   sendDefaultPii: true,
   integrations: [
     Sentry.browserTracingIntegration(),
     Sentry.replayIntegration({
-    maskAllText: false,
-    maskAllInputs: false,
-    blockAllMedia: false,
-  })],
+      maskAllText: false,
+      maskAllInputs: false,
+      blockAllMedia: false,
+    }),
+  ],
   tracesSampleRate: 1.0,
   tracePropagationTargets: tracePropagationTargets,
   replaysSessionSampleRate: 1.0,
-  replaysOnErrorSampleRate:1.0,
+  replaysOnErrorSampleRate: 1.0,
   enableLogs: true,
 });
 
 // GET => useQuery
 // any other => useMutation
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider>
       <SentryUserSync />
@@ -57,8 +58,8 @@ createRoot(document.getElementById('root')).render(
             <App />
           </Sentry.ErrorBoundary>
         </BrowserRouter>
-        
       </QueryClientProvider>
     </ClerkProvider>
   </StrictMode>,
-)
+);
+
