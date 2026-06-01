@@ -84,8 +84,6 @@ async function fulfillCheckoutSession(
 }
 
 export async function polarWebhookHandler(req: Request, res: Response) {
-  res.json({ ok: true });
-
   const env = getEnv();
 
   try {
@@ -160,6 +158,10 @@ export async function polarWebhookHandler(req: Request, res: Response) {
     res.json({ ok: true });
   } catch (error) {
     console.error('Error handling Polar webhook', error);
-    res.status(400).json({ error: 'Invalid webhook event' });
+    res
+      .status(400)
+      .json({
+        error: `Invalid webhook event ${error instanceof Error ? error.message : 'Unknown error'}`,
+      });
   }
 }
