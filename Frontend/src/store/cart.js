@@ -3,7 +3,7 @@ import {persist} from "zustand/middleware"
 
 // persist will save the cart state in localStorage, so that it persists across page reloads
 export const useCartStore = create(persist((set, get) => ({
-    items: [{productId: 1, quantity: 2}],
+    items: [],
 
     addItems(productId, quantity = 1){
         const items = [...get().items];

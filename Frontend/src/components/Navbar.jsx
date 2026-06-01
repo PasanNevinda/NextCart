@@ -37,7 +37,7 @@ const Navbar = () => {
                     to="/"
                     className="btn btn-ghost gap-2 px-2 font-mono text-lg font=semibond uppercase tracking-wide md:text-xl">
                         <span className="flex size-10 items-center justify-center rounded-lg bg-primar/15 p-1 text-primary">
-                            <StoreIcon className="size-8" area-hidden/>
+                            <StoreIcon className="size-8" aria-hidden/>
                         </span>
                         <span className="leading-none">NextCart</span>
                 </Link>
@@ -45,19 +45,19 @@ const Navbar = () => {
 
             <nav className="flex items-center gap-1 md:gap-1.5">
                 <Link to="/" className='btn btn-ghost gap-2 font-medium'>
-                    <ShoppingBagIcon className="size-6" area-hidden/>
+                    <ShoppingBagIcon className="size-6" aria-hidden/>
                     <span className="hidden sm:inline">Shop</span>
                 </Link>
 
                 <Show when={"signed-in"}>
                     <Link to="/orders" className='btn btn-ghost gap-2 font-medium'>
-                        <PackageIcon className="size-6" area-hidden/>
+                        <PackageIcon className="size-6" aria-hidden/>
                         <span className="hidden sm:inline">Orders</span>
                     </Link>
 
                     {role === "admin" ? (
                         <Link to="/admin" className='btn btn-ghost gap-2 font-medium'>
-                            <SettingsIcon className="size-6" area-hidden/>
+                            <SettingsIcon className="size-6" aria-hidden/>
                             <span className="hidden sm:inline">Admin</span>
                         </Link>
                     ) : null}
@@ -73,7 +73,7 @@ const Navbar = () => {
                             cartItemCount > 99 ? "99+" : cartItemCount
                         }</span>
                     ) : null}
-                    <ShoppingCartIcon className="size-6" area-hidden/>
+                    <ShoppingCartIcon className="size-6" aria-hidden/>
                     <span className="hidden sm:inline">Cart</span>
                 </Link>
 
@@ -82,7 +82,7 @@ const Navbar = () => {
                 <Show when={"signed-out"}>
                     <SignInButton mode="modal">
                         <button className='btn btn-primary btn-sm gap-1.5 px-3 shadow-md'>
-                            <LogInIcon className="size-4 drop-shadow-sm" area-hidden/>
+                            <LogInIcon className="size-4 drop-shadow-sm" aria-hidden/>
                             <span className="hidden sm:inline">Sign In</span>
                         </button>
                     </SignInButton>
