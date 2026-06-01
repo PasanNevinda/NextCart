@@ -84,6 +84,8 @@ async function fulfillCheckoutSession(
 }
 
 export async function polarWebhookHandler(req: Request, res: Response) {
+  res.json({ ok: true });
+
   const env = getEnv();
 
   try {
@@ -94,18 +96,13 @@ export async function polarWebhookHandler(req: Request, res: Response) {
 
     const raw =
       req.body instanceof Buffer ? req.body : Buffer.from(String(req.body));
-    const wh = new Webhook(env.POLAR_WEBHOOK_SECRET);
+    const wh = new Webhook(
+      Buffer.from(env.POLAR_WEBHOOK_SECRET).toString('base64')
+    );
 
     const id = headerString(req.headers, 'webhook-id');
     const ts = headerString(req.headers, 'webhook-timestamp');
     const sig = headerString(req.headers, 'webhook-signature');
-
-    console.log(
-      'Webhook secret prefix:',
-      env.POLAR_WEBHOOK_SECRET.substring(0, 10) + '...'
-    );
-    console.log('Headers:', { id, ts, sig: sig?.substring(0, 20) + '...' });
-    console.log('Raw body:', raw.toString('utf-8').substring(0, 200));
 
     if (!id || !ts || !sig) {
       res.status(400).send('Missing required webhook headers');
