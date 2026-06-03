@@ -11,7 +11,7 @@ function useOrdersPage() {
     enabled: isSignedIn, // only fetch orders when user is signed in
   });
 
-  console.log('OrdersPage data:', data);
+  // console.log('OrdersPage data:', data);
 
   const { data: meData } = useQuery({
     queryKey: ['me'],

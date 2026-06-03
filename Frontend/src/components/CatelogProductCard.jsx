@@ -1,19 +1,25 @@
-import { Link } from "react-router";
-import { PlusIcon } from "lucide-react";
-import { formatPrice } from "../utils/format.js";
-import { IK_PRESETS, imageKitOptimizedUrl } from "../lib/imagekitUrl.js";
-import { useCartStore } from "../store/cart.js";
+import { Link } from 'react-router';
+import { PlusIcon } from 'lucide-react';
+import { formatPrice } from '../utils/format.js';
+import { IK_PRESETS, imageKitOptimizedUrl } from '../lib/imagekitUrl.js';
+import { useCartStore } from '../store/cart.js';
 
 export function CatalogProductCard({ product }) {
   const addItems = useCartStore((s) => s.addItems);
 
   return (
     <article className="card group h-full overflow-hidden border border-base-300 bg-base-100 shadow-md transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-xl">
-      <Link to={`/product/${product.slug}`} className="relative block overflow-hidden">
+      <Link
+        to={`/products/${product.slug}`}
+        className="relative block overflow-hidden"
+      >
         <figure className="aspect-4/3 bg-base-300">
           {product.imageUrl ? (
             <img
-              src={imageKitOptimizedUrl(product.imageUrl, IK_PRESETS.catalogCard)}
+              src={imageKitOptimizedUrl(
+                product.imageUrl,
+                IK_PRESETS.catalogCard
+              )}
               alt=""
               className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               loading="lazy"
@@ -22,12 +28,12 @@ export function CatalogProductCard({ product }) {
           ) : null}
         </figure>
         <span className="badge badge-sm absolute left-3 top-3 border-0 bg-base-100/90 text-xs font-medium text-base-content/80 backdrop-blur">
-          {product.category ?? "General"}
+          {product.category ?? 'General'}
         </span>
       </Link>
       <div className="card-body grow gap-3 p-5 text-left">
         <Link
-          to={`/product/${product.slug}`}
+          to={`/products/${product.slug}`}
           className="card-title line-clamp-2 text-lg transition group-hover:text-primary"
         >
           {product.name}
